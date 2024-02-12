@@ -1,10 +1,11 @@
-package com.aquent.crudapp.person;
+package com.aquent.crudapp.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import com.aquent.crudapp.model.Person;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -24,10 +25,10 @@ public class JdbcPersonDao implements PersonDao {
     private static final String SQL_READ_PERSON = "SELECT * FROM person WHERE person_id = :personId";
     private static final String SQL_DELETE_PERSON = "DELETE FROM person WHERE person_id = :personId";
     private static final String SQL_UPDATE_PERSON = "UPDATE person SET (first_name, last_name, email_address, street_address, city, state, zip_code)"
-                                                  + " = (:firstName, :lastName, :emailAddress, :streetAddress, :city, :state, :zipCode)"
-                                                  + " WHERE person_id = :personId";
+            + " = (:firstName, :lastName, :emailAddress, :streetAddress, :city, :state, :zipCode)"
+            + " WHERE person_id = :personId";
     private static final String SQL_CREATE_PERSON = "INSERT INTO person (first_name, last_name, email_address, street_address, city, state, zip_code)"
-                                                  + " VALUES (:firstName, :lastName, :emailAddress, :streetAddress, :city, :state, :zipCode)";
+            + " VALUES (:firstName, :lastName, :emailAddress, :streetAddress, :city, :state, :zipCode)";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
