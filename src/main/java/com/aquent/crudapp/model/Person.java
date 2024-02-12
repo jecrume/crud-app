@@ -3,6 +3,7 @@ package com.aquent.crudapp.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -11,8 +12,12 @@ import javax.validation.constraints.Size;
  */
 @Getter
 @Setter
+@Entity
+@Table(name = "person")
 public class Person {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "person_id", nullable = false)
     private Integer personId;
 
     @NotNull
@@ -42,5 +47,9 @@ public class Person {
     @NotNull
     @Size(min = 5, max = 5, message = "Zip code is required with length 5")
     private String zipCode;
+
+    @ManyToOne
+    @JoinColumn(name="id", nullable = false)
+    private Client client;
 
 }
