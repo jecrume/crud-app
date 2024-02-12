@@ -1,8 +1,11 @@
-package com.aquent.crudapp.person;
+package com.aquent.crudapp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aquent.crudapp.model.Person;
+import com.aquent.crudapp.service.DefaultPersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 
 /**
  * Controller for handling basic person management operations.
@@ -20,11 +24,13 @@ public class PersonController {
 
     public static final String COMMAND_DELETE = "Delete";
 
-    private final PersonService personService;
+    @Autowired
+    private DefaultPersonService defaultPersonService;
 
-    public PersonController(PersonService personService) {
-        this.personService = personService;
-    }
+
+//    public PersonController(DefaultPersonService defaultPersonService) {
+//        this.defaultPersonService =  defaultPersonService;
+//    }
 
     /**
      * Renders the listing page.
@@ -34,7 +40,7 @@ public class PersonController {
     @GetMapping(value = "list")
     public ModelAndView list() {
         ModelAndView mav = new ModelAndView("person/list");
-        mav.addObject("persons", personService.listPeople());
+        mav.addObject("persons", defaultPersonService.listPeople());
         return mav;
     }
 
@@ -61,9 +67,9 @@ public class PersonController {
      */
     @PostMapping(value = "create")
     public ModelAndView create(Person person) {
-        List<String> errors = personService.validatePerson(person);
+        List<String> errors = defaultPersonService.validatePerson(person);
         if (errors.isEmpty()) {
-            personService.createPerson(person);
+            defaultPersonService.createPerson(person);
             return new ModelAndView("redirect:/person/list");
         } else {
             ModelAndView mav = new ModelAndView("person/create");
@@ -82,7 +88,7 @@ public class PersonController {
     @GetMapping(value = "edit/{personId}")
     public ModelAndView edit(@PathVariable Integer personId) {
         ModelAndView mav = new ModelAndView("person/edit");
-        mav.addObject("person", personService.readPerson(personId));
+        mav.addObject("person", defaultPersonService.readPerson(personId));
         mav.addObject("errors", new ArrayList<String>());
         return mav;
     }
@@ -97,9 +103,9 @@ public class PersonController {
      */
     @PostMapping(value = "edit")
     public ModelAndView edit(Person person) {
-        List<String> errors = personService.validatePerson(person);
+        List<String> errors = defaultPersonService.validatePerson(person);
         if (errors.isEmpty()) {
-            personService.updatePerson(person);
+           defaultPersonService.updatePerson(person);
             return new ModelAndView("redirect:/person/list");
         } else {
             ModelAndView mav = new ModelAndView("person/edit");
@@ -118,7 +124,7 @@ public class PersonController {
     @GetMapping(value = "delete/{personId}")
     public ModelAndView delete(@PathVariable Integer personId) {
         ModelAndView mav = new ModelAndView("person/delete");
-        mav.addObject("person", personService.readPerson(personId));
+        mav.addObject("person", defaultPersonService.readPerson(personId));
         return mav;
     }
 
@@ -132,7 +138,7 @@ public class PersonController {
     @PostMapping(value = "delete")
     public String delete(@RequestParam String command, @RequestParam Integer personId) {
         if (COMMAND_DELETE.equals(command)) {
-            personService.deletePerson(personId);
+            defaultPersonService.deletePerson(personId);
         }
         return "redirect:/person/list";
     }
