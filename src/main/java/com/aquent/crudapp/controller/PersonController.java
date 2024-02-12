@@ -1,8 +1,10 @@
-package com.aquent.crudapp.person;
+package com.aquent.crudapp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aquent.crudapp.model.Person;
+import com.aquent.crudapp.service.PersonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 
 /**
  * Controller for handling basic person management operations.
