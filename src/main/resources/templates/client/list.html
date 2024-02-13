@@ -1,0 +1,55 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Client Listing</title>
+</head>
+<body>
+<h1>Client Listing</h1>
+<p><a href="/client/create">Create New Person</a></p>
+<th:block th:unless="${#lists.isEmpty(clients)}">
+    <table>
+        <thead>
+        <tr>
+            <th>Company Name</th>
+            <th>Website</th>
+            <th>Phone Number</th>
+            <th>Mailing Address</th>
+            <th>Physical Address</th>
+            <th>Contact(s)</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="client : ${clients}">
+            <tr>
+                <td th:text="${client.companyName}">Company Name</td>
+                <td th:text="${client.companyWebsiteUrl}">Website Url</td>
+                <td th:text="${client.companyPhoneNumber}">9104321234</td>
+                <td th:text="${client.companyMailingAddress}">123 Main St</td>
+                <td th:text="${client.companyPhysicalAddress}">123 Oak St.</td>
+                <td>
+                    <th:block th:each="person : ${persons}">
+                    <td th:text="person.firstName + person.LastName"> Contact Name</td>
+                    </th:block>
+                    <td>
+                        <a href="/contact/add"></a>
+                        <a href="/contact/delete"></a>
+                    </td>
+                </td>
+                <td>
+                    <a th:href="'/client/edit/' + ${client.id}">Edit Client</a>
+                    <a th:href="'/client/delete/' + ${client.id}">Delete Client</a>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</th:block>
+<th:block th:if="${#lists.isEmpty(persons)}">
+    <p>No results found.</p>
+</th:block>
+</body>
+</html>

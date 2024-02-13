@@ -49,7 +49,7 @@ public class Person {
     private String zipCode;
 
     @ManyToOne
-    @JoinColumn(name="id", nullable = false)
+    @JoinColumn(name="client_id", nullable = false)
     private Client client;
 
 }

@@ -10,13 +10,14 @@ import javax.validation.Validator;
 import com.aquent.crudapp.model.Person;
 import com.aquent.crudapp.repository.PersonDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Default implementation of {@link PersonService}.
  */
-@Component
+@Service
 public class DefaultPersonService implements PersonService {
 
     private final PersonDao personDao;

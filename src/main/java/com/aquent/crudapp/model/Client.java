@@ -14,9 +14,9 @@ import java.util.ArrayList;
 @Table(name = "client")
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private Long clientId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
     @Column(name = "company_name")
     private String companyName;
@@ -33,6 +33,6 @@ public class Client {
     @Column(name = "physical_address")
     private String companyPhysicalAddress;
 
-    @OneToMany(mappedBy = "client")
+    @Transient
     private ArrayList<Person> contacts;
 }

@@ -19,6 +19,9 @@
     <form action="/person/edit" method="POST">
       <input type="hidden" name="personId" th:value="${person.personId}"/>
       <br/>
+      <label for="client"> Client Name:</label>
+      <input type="text" name="client" th:value="${person.client.companyName}"/>
+      <br/>
       <label for="firstName">First Name:</label>
       <input type="text" name="firstName" th:value="${person.firstName}"/>
       <br/>
